@@ -21,7 +21,7 @@ function App() {
         setTasks(filteredTasks)
     }
 
-    function addTask(inputValue:string) {
+    function addTask(inputValue: string) {
         let newTask = {id: v1(), title: inputValue, isDone: false}
         let newArrayTasks = [newTask, ...tasks]
         setTasks(newArrayTasks)
@@ -40,15 +40,26 @@ function App() {
         setFilter(value)
     }
 
+    function changeTaskStatus(tId: string, isDone: boolean) {
+        let task = tasks.find(t => t.id === tId)
+        if (task) {
+            task.isDone = isDone
+        }
+        setTasks([...tasks])
+    }
+
+
 
     return (
         <div className="App">
             <TodoList
-                addTask={addTask}
                 title={'What To learn'}
                 tasks={tasksForTodoList}
+
                 removeTask={removeTask}
                 changeFilter={changeFilter}
+                changeTaskStatus={changeTaskStatus}
+                addTask={addTask}
             />
 
         </div>
