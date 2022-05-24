@@ -9,11 +9,13 @@ export type TasksType = {
 type TodoListPropsType = {
     title: string
     tasks: Array<TasksType>
-    removeTask: (id: string) => void
-    changeFilter: (value: FilterValuesType) => void
-    addTask: (inputValue: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    removeTask: (id: string, todolistId: string) => void
+    changeFilter: (todolistId: string, value: FilterValuesType) => void
+    addTask: (todolistId: string, inputValue: string) => void
+    changeTaskStatus: (todolistId: string, tId: string, isDone: boolean) => void
     filter: FilterValuesType
+    todolistID: string
+    removeTodoList: (todolistId: string) => void
 }
 
 
@@ -28,13 +30,13 @@ export function TodoList(props: TodoListPropsType) {
     const inputValueOnKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         if (event.charCode === 13) {
-            props.addTask(inputValue)
+            props.addTask(props.todolistID, inputValue)
             setInputValue('')
         }
     }
     const buttonOnClickAddTask = () => {
         if (inputValue.trim() !== '') {
-            props.addTask(inputValue.trim())
+            props.addTask(props.todolistID, inputValue.trim())
             setInputValue('')
         } else {
             setError('Error')
@@ -42,12 +44,20 @@ export function TodoList(props: TodoListPropsType) {
 
 
     }
-    const buttonOnclickChangeFilterHandler = (filter: FilterValuesType) => () => props.changeFilter(filter)
 
+    const buttonOnclickChangeFilterHandler = (todolistID: string, filter: FilterValuesType) => () => props.changeFilter(props.todolistID, filter)
+
+    const buttonRemoveTodoListHandler = () => {
+        props.removeTodoList(props.todolistID)
+    }
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>
+                {props.title}
+                <button onClick={buttonRemoveTodoListHandler}>-</button>
+            </h3>
+
             <div>
                 <input
                     className={error ? 'error' : ''}
@@ -60,12 +70,12 @@ export function TodoList(props: TodoListPropsType) {
             <ul>
                 {props.tasks.map(t => {
                         const checkboxOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-                            props.changeTaskStatus(t.id, event.currentTarget.checked)
+                            props.changeTaskStatus(props.todolistID, t.id, event.currentTarget.checked)
                         }
                         const buttonRemoveTaskHandler = () => {
-                            props.removeTask(t.id)
+                            props.removeTask(t.id, props.todolistID)
                         }
-                        return <li key={t.id} className={t.isDone ?'is-done': ''}>
+                        return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
                             <input
                                 onChange={checkboxOnChangeHandler}
                                 type="checkbox"
@@ -79,13 +89,13 @@ export function TodoList(props: TodoListPropsType) {
             </ul>
             <div>
                 <button className={props.filter === 'all' ? 'active-filter' : ''}
-                        onClick={buttonOnclickChangeFilterHandler('all')}>all
+                        onClick={buttonOnclickChangeFilterHandler(props.todolistID, 'all')}>all
                 </button>
                 <button className={props.filter === 'completed' ? 'active-filter' : ''}
-                        onClick={buttonOnclickChangeFilterHandler('completed')}>completed
+                        onClick={buttonOnclickChangeFilterHandler(props.todolistID, 'completed')}>completed
                 </button>
                 <button className={props.filter === 'active' ? 'active-filter' : ''}
-                        onClick={buttonOnclickChangeFilterHandler('active')}>active
+                        onClick={buttonOnclickChangeFilterHandler(props.todolistID, 'active')}>active
                 </button>
             </div>
         </div>
