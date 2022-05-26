@@ -8,6 +8,8 @@ type TodoListPropsType = {
 }
 
 export function TodoList(props: TodoListPropsType) {
+
+    
     if(props.todos.length === 0){
         return <p className={'center'}>nothing to do</p>
     }

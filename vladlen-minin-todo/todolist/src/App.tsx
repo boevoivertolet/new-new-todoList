@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navbar} from './components/Navbar';
 import {TodoForm} from './components/TodoForm';
 import {TodoList} from './components/TodoList';
@@ -14,7 +14,17 @@ function App() {
 
     let [todos, setTodos] = useState<newTodoType[]>([])
 
-    const toggleTodo= (id: number) => {
+    useEffect(() => {
+        const saved = JSON.parse(localStorage.getItem('todos') || '[]') as newTodoType[]
+        setTodos(saved)
+    }, [])
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos])
+
+
+
+    const toggleTodo = (id: number) => {
         setTodos(todos.map(td => {
             if (td.id === id) {
                 td.completed = !td.completed
@@ -24,11 +34,11 @@ function App() {
     }
 
     const removeTodo = (id: number) => {
-       const shouldRemove = window.confirm('Are u sure?')
-        if (shouldRemove){
-            setTodos(prev => prev.filter(td=> td.id !== id))
-        }
+        /* const shouldRemove = window.confirm('Are u sure?')
+          if (shouldRemove){
 
+          }*/
+        setTodos(todos.filter(td => td.id !== id))
     }
     const addNewTodo = (title: string) => {
         const newTodo = {
