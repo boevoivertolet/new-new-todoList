@@ -4,10 +4,13 @@ import {newTodoType} from '../App';
 type TodoListPropsType = {
     todos: newTodoType[]
     removeTodo: (id: number) => void
-    toggleTodo(id: number): void
+    toggleTodo:(id: number)=> void
 }
 
 export function TodoList(props: TodoListPropsType) {
+    if(props.todos.length === 0){
+        return <p className={'center'}>nothing to do</p>
+    }
     return (
         <ul>
             {
@@ -22,7 +25,7 @@ export function TodoList(props: TodoListPropsType) {
                                 <input
                                     type="checkbox"
                                     checked={td.completed}
-                                    onChange={props.toggleTodo.bind(null, td.id)}
+                                    onChange={()=>{props.toggleTodo(td.id)}}
                                 />
                                 <span>{td.title}</span>
                                 <i className={'material-icons red-text'} onClick={() => {

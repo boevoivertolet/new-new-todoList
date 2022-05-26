@@ -12,14 +12,10 @@ export type newTodoType = {
 
 function App() {
 
-    const [todos, setTodos] = useState<newTodoType[]>([])
+    let [todos, setTodos] = useState<newTodoType[]>([])
 
-    const removeTodo = (id: number) => {
-        setTodos(prev => prev.filter(td=> td.id !== id))
-
-    }
-    const toggleTodo = (id: number) => {
-        setTodos(prev => prev.map(td => {
+    const toggleTodo= (id: number) => {
+        setTodos(todos.map(td => {
             if (td.id === id) {
                 td.completed = !td.completed
             }
@@ -27,7 +23,13 @@ function App() {
         }))
     }
 
+    const removeTodo = (id: number) => {
+       const shouldRemove = window.confirm('Are u sure?')
+        if (shouldRemove){
+            setTodos(prev => prev.filter(td=> td.id !== id))
+        }
 
+    }
     const addNewTodo = (title: string) => {
         const newTodo = {
             title: title,
