@@ -67,7 +67,7 @@ function App() {
         setTodoLists(todoLists.filter(tl => tl.id !== todolistId))
         delete tasks[todolistId]
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function addTodoList(inputValue: string) {
         let todoList: TodolistType = {
             id: v1(),
@@ -77,7 +77,7 @@ function App() {
         setTodoLists([todoList, ...todoLists]);
         setTasks({...tasks , [todoList.id]:[]})
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     return (
         <div className="App">

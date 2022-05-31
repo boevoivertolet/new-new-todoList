@@ -28,10 +28,11 @@ export function TodoList(props: TodoListPropsType) {
     const buttonRemoveTodoListHandler = () => {
         props.removeTodoList(props.todolistID)
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// создаём обёртку, в которую приходит AddTask и эту обертку уже передаем в AddItemForm
     const addTask = (inputValue: string) => {
-    props.addTask(props.todolistID ,inputValue );
+        props.addTask(props.todolistID, inputValue);
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
             <h3>
@@ -39,7 +40,7 @@ export function TodoList(props: TodoListPropsType) {
                 <button onClick={buttonRemoveTodoListHandler}>-</button>
             </h3>
 
-           <AddItemForm  addTItem={addTask}/>
+            <AddItemForm addTItem={addTask}/>
             <ul>
                 {props.tasks.map(t => {
                         const checkboxOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +55,7 @@ export function TodoList(props: TodoListPropsType) {
                                 type="checkbox"
                                 checked={t.isDone}
                             />
-                            <span>{t.title}</span>
+                            <EditableSpan title={t.title}/>
                             <button onClick={buttonRemoveTaskHandler}>-</button>
                         </li>
                     }
@@ -75,3 +76,10 @@ export function TodoList(props: TodoListPropsType) {
     )
 }
 
+type EditableSpanPropsType = {
+    title: string
+}
+
+function EditableSpan(props: EditableSpanPropsType) {
+    return <span>{props.title}</span>
+}

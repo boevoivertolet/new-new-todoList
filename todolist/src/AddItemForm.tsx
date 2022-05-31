@@ -5,6 +5,8 @@ type AddItemFormPropsType = {
 }
 
 export function AddItemForm(props: AddItemFormPropsType) {
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Перенесено из TodoList.tsx. Универсальная компонента, которая будет работать в Todolist и в App
+
     const [inputValue, setInputValue] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -26,6 +28,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
             setError('Error')
         }
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
         <div>
             <input
