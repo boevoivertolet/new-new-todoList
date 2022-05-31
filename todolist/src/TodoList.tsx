@@ -28,6 +28,9 @@ export function TodoList(props: TodoListPropsType) {
     const buttonRemoveTodoListHandler = () => {
         props.removeTodoList(props.todolistID)
     }
+    const addTask = (inputValue: string) => {
+    props.addTask(props.todolistID ,inputValue );
+    }
 
     return (
         <div>
@@ -36,7 +39,7 @@ export function TodoList(props: TodoListPropsType) {
                 <button onClick={buttonRemoveTodoListHandler}>-</button>
             </h3>
 
-           <AddItemForm todolistID={props.todolistID} addTask={props.addTask}/>
+           <AddItemForm  addTItem={addTask}/>
             <ul>
                 {props.tasks.map(t => {
                         const checkboxOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
