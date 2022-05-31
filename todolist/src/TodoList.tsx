@@ -1,5 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
+import {AddItemForm} from './AddItemForm';
 
 export type TasksType = {
     id: string
@@ -20,30 +21,7 @@ type TodoListPropsType = {
 
 
 export function TodoList(props: TodoListPropsType) {
-    const [inputValue, setInputValue] = useState('')
-    const [error, setError] = useState<string | null>(null)
 
-
-    const inputValueOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.currentTarget.value)
-    }
-    const inputValueOnKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (event.charCode === 13) {
-            props.addTask(props.todolistID, inputValue)
-            setInputValue('')
-        }
-    }
-    const buttonOnClickAddTask = () => {
-        if (inputValue.trim() !== '') {
-            props.addTask(props.todolistID, inputValue.trim())
-            setInputValue('')
-        } else {
-            setError('Error')
-        }
-
-
-    }
 
     const buttonOnclickChangeFilterHandler = (todolistID: string, filter: FilterValuesType) => () => props.changeFilter(props.todolistID, filter)
 
@@ -58,15 +36,7 @@ export function TodoList(props: TodoListPropsType) {
                 <button onClick={buttonRemoveTodoListHandler}>-</button>
             </h3>
 
-            <div>
-                <input
-                    className={error ? 'error' : ''}
-                    value={inputValue}
-                    onChange={inputValueOnChangeHandler}
-                    onKeyPress={inputValueOnKeyPressHandler}/>
-                <button onClick={buttonOnClickAddTask}>+</button>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+           <AddItemForm todolistID={props.todolistID} addTask={props.addTask}/>
             <ul>
                 {props.tasks.map(t => {
                         const checkboxOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -101,3 +71,4 @@ export function TodoList(props: TodoListPropsType) {
         </div>
     )
 }
+

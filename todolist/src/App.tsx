@@ -70,6 +70,7 @@ function App() {
 
     return (
         <div className="App">
+            <input type="text"/><button>+</button>
             {todoLists.map((tl) => {
                 let tasksForTodoList = tasks[tl.id];
                 if (tl.filter === 'completed') {
