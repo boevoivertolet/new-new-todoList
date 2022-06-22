@@ -1,21 +1,49 @@
+
 .App {
     padding: 30px;
     display: flex;
+    background: lightgray;
+    height: auto;
+    color: #1871F9;
 }
 
 .App > div {
     margin-right: 50px;
 }
-.error{
+
+.error {
     border: red 1px solid;
 }
-.error-message{
+
+.error-message {
     color: red
 }
+
 .active-filter {
     color: #1871F9;
     background-color: white;
 }
-.is-done{
+
+.is-done {
     opacity: 0.5;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid #000;
+    background: initial;
+}
+
+div {
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 25px;
+    box-shadow: 6px 6px 6px rgb(0, 0, 0, 025);
+}
+
+input:hover {
+    border-bottom: 3px solid #000000;
+}
+button{
+    box-shadow: 3px 3px 3px rgb(0, 0, 0, 025);
 }
