@@ -1,23 +1,38 @@
-import {TasksStateType} from '../App';
+import {TasksStateType} from '../AppWithReducer';
 import {v1} from 'uuid';
 import {addTodoListACType, removeTodoListACType} from './todolists-reducer';
 
 
-export const tasksReducer = (state: TasksStateType, action: allTasksACsType) => {
+let initialState: TasksStateType = {}
+
+
+export const tasksReducer = (state = initialState, action: allTasksACsType) => {
     switch (action.type) {
         case 'REMOVE-TASK':
             return {
                 ...state,
                 [action.payload.todolistId]: state[action.payload.todolistId].filter(t => t.id !== action.payload.id)
             }
-        case 'ADD-TASK':
+        case 'ADD-TASK':/*{
+            const stateCopy = {...state}
+            const newTask = {
+                id: v1(),
+                title: action.payload.InputValue,
+                isDone: false
+            }
+            const tasks = stateCopy[action.payload.todolistId];
+            const newTasks = [newTask, ...tasks];
+            stateCopy[action.payload.todolistId] = newTasks;
+            return stateCopy;
+        }*/
             return {
                 ...state,
                 [action.payload.todolistId]: [{
                     id: v1(),
-                    title: action.payload.title,
+                    title: action.payload.InputValue,
                     isDone: false
                 }, ...state[action.payload.todolistId]]
+
             }
         case 'CHANGE-TASK':
             return {
@@ -43,14 +58,14 @@ export const tasksReducer = (state: TasksStateType, action: allTasksACsType) => 
                 [action.payload.todolistId]: []
 
             }
-        case 'REMOVE-TODOLIST':{
-            const  copyState={...state}
-            delete copyState[action.payload.todolistId1]
+        case 'REMOVE-TODOLIST': {
+            const copyState = {...state}
+            delete copyState[action.payload.todolistId]
             return copyState
         }
 
         default:
-            throw new Error('Error')
+            return state
     }
 }
 
@@ -72,11 +87,11 @@ export const removeTaskAC = (id: string, todolistId: string) => {
     return {type: 'REMOVE-TASK', payload: {id, todolistId}} as const
 }
 
-export const addTaskAC = (title: string, todolistId: string) => {
-    return {type: 'ADD-TASK', payload: {title, todolistId}} as const
+export const addTaskAC = (InputValue: string, todolistId: string) => {
+    return {type: 'ADD-TASK', payload: {InputValue, todolistId}} as const
 }
 
-export const changeTaskStatusAC = (id: string, isDone: boolean, todolistId: string) => {
+export const changeTaskStatusAC = (todolistId: string, isDone: boolean, id: string) => {
     return {type: 'CHANGE-TASK', payload: {id, isDone, todolistId}} as const
 }
 

@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from './App';
+import {FilterValuesType} from './AppWithRedux';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 
@@ -12,9 +12,9 @@ type TodoListPropsType = {
     title: string
     tasks: Array<TasksType>
     removeTask: (id: string, todolistId: string) => void
-    changeTodoListTitle:(id: string, newTitle: string)=> void
+    changeTodoListTitle:(id: string, newTitle: string,todolistId: string)=> void
     changeFilter: (todolistId: string, value: FilterValuesType) => void
-    addTask: (todolistId: string, inputValue: string) => void
+    addTask: (inputValue: string, todolistId: string) => void
     changeTaskStatus: (todolistId: string, tId: string, isDone: boolean) => void
     changeTaskTitle: (tId: string, todolistId: string, newTitle: string) => void
     filter: FilterValuesType
@@ -32,11 +32,11 @@ export function TodoList(props: TodoListPropsType) {
         props.removeTodoList(props.todolistID)
     }
     const buttonChangeTodoListTitleHandler = (newTitle: string) => {
-        props.changeTodoListTitle(props.todolistID, newTitle)
+        props.changeTodoListTitle(props.todolistID, newTitle, props.title)
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// создаём обёртку, в которую приходит AddTask и эту обертку уже передаем в AddItemForm
     const addTask = (inputValue: string) => {
-        props.addTask(props.todolistID, inputValue);
+        props.addTask(inputValue, props.todolistID);
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (

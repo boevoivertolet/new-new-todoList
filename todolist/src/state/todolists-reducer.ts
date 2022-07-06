@@ -1,10 +1,15 @@
-import {FilterValuesType, TodolistType} from '../App';
+import {FilterValuesType, TasksStateType, TodolistType} from '../AppWithReducer';
 import {v1} from 'uuid';
 
-export const todolistsReducer = (state: TodolistType[], action: allACsType) => {
+
+
+let initialState: TodolistType[] =[]
+
+
+export const todolistsReducer = (state= initialState, action: allACsType): TodolistType[] => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
-            return state.filter(el => el.id !== action.payload.todolistId1)
+            return state.filter(el => el.id !== action.payload.todolistId)
         }
         case 'ADD-TODOLIST': {
 
@@ -20,7 +25,7 @@ export const todolistsReducer = (state: TodolistType[], action: allACsType) => {
         case 'CHANGE-TODOLIST-TITLE': {
             return state.map(el => el.id=== action.payload.todolistId2 ? {...el, title: action.payload.newTodolistTitle }: el) }
         case'CHANGE-TODOLIST-FILTER':{
-            return state.map(el=> el.id===action.payload.todolistId2 ? {...el, filter: action.payload.newFilter} : el)
+            return state.map(el=> el.id===action.payload.todolistId ? {...el, filter: action.payload.filter} : el)
         }
         default:
             return state
@@ -33,10 +38,10 @@ export type addTodoListACType = ReturnType<typeof addTodolistAC>
 type changeTodoListTitleACType = ReturnType<typeof changeTodoListTitleAC>
 type changeFilterACType = ReturnType<typeof changeFilterAC>
 
-export const removeTodoListAC = (todolistId1: string) => {
+export const removeTodoListAC = (todolistId: string) => {
     return {
         type: 'REMOVE-TODOLIST',
-        payload: {todolistId1}
+        payload: {todolistId}
     } as const
 }
 
@@ -56,11 +61,11 @@ export const changeTodoListTitleAC = (todolistId2: string, newTodolistTitle: str
 
 }
 
-export const changeFilterAC = (todolistId2: string, newFilter: FilterValuesType) => {
+export const changeFilterAC = (todolistId: string, filter: FilterValuesType) => {
   return{
       type:'CHANGE-TODOLIST-FILTER',
       payload:{
-          todolistId2, newFilter
+          todolistId, filter
       }
   }as const
 }
