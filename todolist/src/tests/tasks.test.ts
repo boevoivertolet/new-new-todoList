@@ -1,4 +1,5 @@
 import {sum} from './tasks'
+import {sub} from './tasks'
 
 
 test('sum', ()=>{
@@ -11,3 +12,9 @@ test('sum', ()=>{
 expect(result).toBe(1000)
 
 })
+test('sub', ()=>{
+
+expect(sub(1200,200)).toBe(1000)
+
+})
+

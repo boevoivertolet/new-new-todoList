@@ -21,7 +21,7 @@ beforeEach(()=>{
 
 
 
-test('correct task should be deleted from correct array', () => {
+test.skip('correct task should be deleted from correct array', () => {
 
     const action = removeTaskAC('2', 'todolistId2')
 
@@ -40,7 +40,7 @@ test('correct task should be deleted from correct array', () => {
     })
 })
 
-test('correct task should be added to correct array', () => {
+test.skip('correct task should be added to correct array', () => {
 
 
     const action = addTaskAC('juce', 'todolistId2')
@@ -54,7 +54,7 @@ test('correct task should be added to correct array', () => {
     expect(endState['todolistId2'][0].isDone).toBe(false)
 })
 
-test('status of specified task should be changed', () => {
+test.skip('status of specified task should be changed', () => {
 
     const action = changeTaskStatusAC('2', false, 'todolistId2')
 
@@ -64,7 +64,7 @@ test('status of specified task should be changed', () => {
     expect(endState['todolistId1'][1].isDone).toBe(true)
 })
 
-test('title of specified task should be changed', () => {
+test.skip('title of specified task should be changed', () => {
 
     const action = changeTaskTitleAC('2', 'beer', 'todolistId2')
 
@@ -74,7 +74,7 @@ test('title of specified task should be changed', () => {
     expect(endState['todolistId1'][1].title).toBe('JS')
 })
 
-test('new array should be added when new todolist is added', () => {
+test.skip('new array should be added when new todolist is added', () => {
 
     const action = addTodolistAC('new todolist')
 
@@ -91,7 +91,7 @@ test('new array should be added when new todolist is added', () => {
     expect(endState[newKey]).toEqual([])
 })
 
-test('property with todolistId should be deleted', () => {
+test.skip('property with todolistId should be deleted', () => {
 
 
     const action = removeTodoListAC("todolistId2");
