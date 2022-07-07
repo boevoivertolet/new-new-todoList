@@ -16,27 +16,23 @@ test.skip('sum', () => {
     expect(result).toBe(1000)
 
 })
-
 test.skip('sub', () => {
 
     expect(sub(1200, 200)).toBe(1000)
     expect(sub(200, 200)).toBe(0)
 
 })
-
 test.skip('div', () => {
 
     expect(div(1200, 2)).toBe(600)
     expect(div(100, 2)).toBe(50)
 
 })
-
 test.skip('mult', () => {
 
     expect(mult(1200, 2)).toBe(2400)
     expect(mult(100, 2)).toBe(200)
 })
-
 test.skip('case SUM of salaryReducer', ()=>{
     const salary: StateType =800
     const action: ActionType ={
