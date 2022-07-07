@@ -44,3 +44,36 @@ test.skip('case SUM of salaryReducer', ()=>{
 
     expect(result).toBe(1000)
 })
+test.skip('case SUB of salaryReducer', ()=>{
+    const salary: StateType =800
+    const action: ActionType ={
+        type: "SUB",
+        n: 200
+    }
+    const result = salaryReducer(salary, action)
+
+
+    expect(result).toBe(600)
+})
+test.skip('case DIV of salaryReducer', ()=>{
+    const salary: StateType =800
+    const action: ActionType ={
+        type: "DIV",
+        n: 200
+    }
+    const result = salaryReducer(salary, action)
+
+
+    expect(result).toBe(4)
+})
+test('case MULT of salaryReducer', ()=>{
+    const salary: StateType =800
+    const action: ActionType ={
+        type: "MULT",
+        n: 2
+    }
+    const result = salaryReducer(salary, action)
+
+
+    expect(result).toBe(1600)
+})
