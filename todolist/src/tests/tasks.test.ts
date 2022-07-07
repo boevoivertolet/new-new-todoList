@@ -66,7 +66,7 @@ test.skip('case DIV of salaryReducer', ()=>{
 
     expect(result).toBe(4)
 })
-test('case MULT of salaryReducer', ()=>{
+test.skip('case MULT of salaryReducer', ()=>{
     const salary: StateType =800
     const action: ActionType ={
         type: "MULT",
