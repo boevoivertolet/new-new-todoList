@@ -4,7 +4,8 @@ type AddItemFormPropsType = {
     addTItem: (inputValue: string) => void
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
+export const AddItemForm =React.memo((props: AddItemFormPropsType) => {
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Перенесено из TodoList.tsx. Универсальная компонента, которая будет работать в Todolist и в App
 
     const [inputValue, setInputValue] = useState('')
@@ -14,7 +15,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
         setInputValue(event.currentTarget.value)
     }
     const inputValueOnKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+       if(error) setError(null)
         if (event.charCode === 13) {
             addTask();
             setInputValue('')
@@ -40,4 +41,4 @@ export function AddItemForm(props: AddItemFormPropsType) {
             {error && <div className={'error-message'}>{error}</div>}
         </div>
     )
-}
+})
